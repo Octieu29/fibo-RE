@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fibo Scanner</title>
+
+<style>
+body {
+  background: #0d1117;
+  color: #e6edf3;
+  font-family: Arial;
+  text-align: center;
+  padding: 30px;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: #161b22;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #000;
+}
+
+h1 {
+  color: #58a6ff;
+}
+
+input {
+  width: 80%;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background: #238636;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #2ea043;
+}
+
+.result {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.level {
+  padding: 8px;
+  margin: 5px 0;
+  background: #21262d;
+  border-radius: 6px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Fibo Scanner</h1>
+
+  <input type="number" id="low" placeholder="Giá thấp">
+  <input type="number" id="high" placeholder="Giá cao">
+
+  <br>
+  <button onclick="calculate()">Tính Fibonacci</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+function calculate() {
+  let low = parseFloat(document.getElementById("low").value);
+  let high = parseFloat(document.getElementById("high").value);
+
+  if (isNaN(low) || isNaN(high) || low >= high) {
+    alert("Nhập đúng giá thấp < giá cao");
+    return;
+  }
+
+  let fiboLevels = [
+    {level: "0.236", value: 0.236},
+    {level: "0.382", value: 0.382},
+    {level: "0.5", value: 0.5},
+    {level: "0.618", value: 0.618},
+    {level: "0.786", value: 0.786}
+  ];
+
+  let resultHTML = "<h3>Kết quả:</h3>";
+
+  fiboLevels.forEach(f => {
+    let price = high - (high - low) * f.value;
+    resultHTML += `
+      <div class="level">
+        Fibo ${f.level}: <b>${price.toFixed(6)}</b>
+      </div>
+    `;
+  });
+
+  document.getElementById("result").innerHTML = resultHTML;
+}
+</script>
+
+</body>
+</html>
